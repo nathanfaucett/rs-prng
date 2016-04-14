@@ -3,6 +3,13 @@ name = "pseudo_random"
 version = "0.1.0"
 authors = ["nathanfaucett <nathanfaucett@gmail.com>"]
 
+keywords = ["pseudo_random"]
+description = "pseudo random"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/nathanfaucett/rs-pseudo_random.git"
+homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
+
 [profile.dev]
 debug-assertions = false
 
