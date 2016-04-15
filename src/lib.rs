@@ -4,9 +4,8 @@
 use core::usize::MAX as USIZE_MAX;
 
 
-/*
-https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
-*/
+// https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
+
 #[cfg(target_pointer_width = "32")]
 static OFFSET: usize = 1013904223;
 #[cfg(target_pointer_width = "32")]
@@ -21,9 +20,8 @@ static MULTIPLIER: usize = 6364136223846793005;
 
 static mut SEED: usize = USIZE_MAX / 2usize;
 
-/*
-based on http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-*/
+
+// http://indiegamr.com/generate-repeatable-random-numbers-in-js/
 #[inline(always)]
 pub fn rand() -> usize {
     unsafe {
