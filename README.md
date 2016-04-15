@@ -3,7 +3,7 @@ rs-pseudo_random
 
 pseudo random number generator
 
-```
+```rust
 extern crate pseudo_random;
 
 
