@@ -1,31 +1,48 @@
 #![no_std]
 
 
-static mut seed: u64 = 19940046431;
-use core::usize::MAX;
+use core::usize::MAX as USIZE_MAX;
+
+
+#[cfg(target_pointer_width = "32")]
+static OFFSET: usize = 1013904223;
+#[cfg(target_pointer_width = "32")]
+static MULTIPLIER: usize = 1664525;
+
+
+#[cfg(target_pointer_width = "64")]
+static OFFSET: usize = 1442695040888963407;
+#[cfg(target_pointer_width = "64")]
+static MULTIPLIER: usize = 6364136223846793005;
+
+
+static mut SEED: usize = USIZE_MAX / 2usize;
 
 
 #[inline(always)]
 pub fn rand() -> usize {
     unsafe {
-        seed ^= seed << 12;
-        seed ^= seed << 25;
-        seed ^= seed << 27;
-        seed = seed * 82724793451 + 12345;
-        (seed as usize) % MAX
+        SEED = (MULTIPLIER * SEED + OFFSET) % USIZE_MAX;
+        SEED
     }
 }
 
 #[inline(always)]
 pub fn srand(s: usize) {
     unsafe {
-        seed = s as u64;
+        SEED = s;
     }
 }
 
 #[test]
 fn test_rand() {
-    assert_eq!(rand(), 9480282067609464302);
-    srand(9480282067609464302);
-    assert_eq!(rand(), 13439875519330593459);
+    if cfg!(target_pointer_width = "64") {
+        assert_eq!(rand(), 4301930853896946210);
+        srand(4301930853896946210);
+        assert_eq!(rand(), 3578485316352917321);
+    } else if cfg!(target_pointer_width = "32") {
+        assert_eq!(rand(), 3159723346);
+        srand(3159723346);
+        assert_eq!(rand(), 2954349705);
+    }
 }
