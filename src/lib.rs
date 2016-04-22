@@ -37,8 +37,9 @@ impl Random {
     }
 
     #[inline(always)]
-    pub fn seed(&mut self, s: usize) {
+    pub fn seed(&mut self, s: usize) -> &mut Self {
         self._seed = s;
+        self
     }
 }
 
