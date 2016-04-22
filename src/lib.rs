@@ -17,9 +17,6 @@ static OFFSET: usize = 1442695040888963407;
 static MULTIPLIER: usize = 6364136223846793005;
 
 
-static mut SEED: usize = USIZE_MAX / 2;
-
-
 pub struct Random {
     _seed: usize,
 }
@@ -46,7 +43,7 @@ impl Random {
 }
 
 #[test]
-fn test_random_struct() {
+fn test_random() {
     let mut random = Random::new();
 
     if cfg!(target_pointer_width = "64") {
@@ -57,33 +54,5 @@ fn test_random_struct() {
         assert_eq!(random.rand(), 3159723346);
         random.seed(3159723346);
         assert_eq!(random.rand(), 2954349705);
-    }
-}
-
-
-#[inline(always)]
-pub fn rand() -> usize {
-    unsafe {
-        SEED = (MULTIPLIER * SEED + OFFSET) % USIZE_MAX;
-        SEED
-    }
-}
-#[inline(always)]
-pub fn seed(s: usize) {
-    unsafe {
-        SEED = s;
-    }
-}
-
-#[test]
-fn test_random() {
-    if cfg!(target_pointer_width = "64") {
-        assert_eq!(rand(), 4301930853896946210);
-        seed(4301930853896946210);
-        assert_eq!(rand(), 3578485316352917321);
-    } else if cfg!(target_pointer_width = "32") {
-        assert_eq!(rand(), 3159723346);
-        seed(3159723346);
-        assert_eq!(rand(), 2954349705);
     }
 }
