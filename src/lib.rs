@@ -1,7 +1,7 @@
 #![no_std]
 
 
-use core::usize::MAX as USIZE_MAX;
+pub use core::usize::MAX;
 
 
 // https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
@@ -17,31 +17,32 @@ static OFFSET: usize = 1442695040888963407;
 static MULTIPLIER: usize = 6364136223846793005;
 
 
-static mut SEED: usize = USIZE_MAX / 2;
-
-
 pub struct Random {
-    _seed: usize,
+    seed: usize,
 }
 
 impl Random {
     #[inline(always)]
-    pub fn new() -> Random {
+    pub fn new() -> Self {
         Random {
-            _seed: USIZE_MAX / 2,
+            seed: MAX / 2,
         }
     }
 
     // http://indiegamr.com/generate-repeatable-random-numbers-in-js/
     #[inline(always)]
-    pub fn rand(&mut self) -> usize {
-        self._seed = (MULTIPLIER * self._seed + OFFSET) % USIZE_MAX;
-        self._seed
+    pub fn next(&mut self) -> usize {
+        self.seed = (MULTIPLIER * self.seed + OFFSET) % MAX;
+        self.seed
     }
 
     #[inline(always)]
-    pub fn seed(&mut self, s: usize) {
-        self._seed = s;
+    pub fn get_seed(&mut self) -> usize {
+        self.seed
+    }
+    #[inline(always)]
+    pub fn set_seed(&mut self, s: usize) {
+        self.seed = s;
     }
 }
 
@@ -50,40 +51,12 @@ fn test_random_struct() {
     let mut random = Random::new();
 
     if cfg!(target_pointer_width = "64") {
-        assert_eq!(random.rand(), 4301930853896946210);
-        random.seed(4301930853896946210);
-        assert_eq!(random.rand(), 3578485316352917321);
+        assert_eq!(random.next(), 4301930853896946210);
+        random.set_seed(1);
+        assert_eq!(random.next(), 7806831264735756412);
     } else if cfg!(target_pointer_width = "32") {
-        assert_eq!(random.rand(), 3159723346);
-        random.seed(3159723346);
-        assert_eq!(random.rand(), 2954349705);
-    }
-}
-
-
-#[inline(always)]
-pub fn rand() -> usize {
-    unsafe {
-        SEED = (MULTIPLIER * SEED + OFFSET) % USIZE_MAX;
-        SEED
-    }
-}
-#[inline(always)]
-pub fn seed(s: usize) {
-    unsafe {
-        SEED = s;
-    }
-}
-
-#[test]
-fn test_random() {
-    if cfg!(target_pointer_width = "64") {
-        assert_eq!(rand(), 4301930853896946210);
-        seed(4301930853896946210);
-        assert_eq!(rand(), 3578485316352917321);
-    } else if cfg!(target_pointer_width = "32") {
-        assert_eq!(rand(), 3159723346);
-        seed(3159723346);
-        assert_eq!(rand(), 2954349705);
+        assert_eq!(random.next(), 3159723346);
+        random.set_seed(1);
+        assert_eq!(random.next(), 1015568748);
     }
 }
