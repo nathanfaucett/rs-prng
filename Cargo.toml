@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["nathanfaucett <nathanfaucett@gmail.com>"]
 
 keywords = ["pseudo_random"]
-description = "pseudo random"
+description = "pseudo random number generator"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/nathanfaucett/rs-pseudo_random.git"
