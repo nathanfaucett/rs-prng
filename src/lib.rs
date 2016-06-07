@@ -37,7 +37,7 @@ impl Random {
     }
 
     #[inline(always)]
-    pub fn get_seed(&self) -> usize {
+    pub fn seed(&self) -> usize {
         self.seed
     }
     #[inline(always)]
