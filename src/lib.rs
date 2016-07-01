@@ -51,6 +51,8 @@ impl RandomData {
     }
 }
 
+
+#[derive(Clone)]
 pub struct Random {
     data: Arc<RefCell<RandomData>>,
 }
@@ -85,17 +87,5 @@ impl Random {
     }
 }
 
-#[test]
-fn test_random_struct() {
-    let random = Random::new();
-
-    if cfg!(target_pointer_width = "64") {
-        assert_eq!(random.next(), 4301930853896946210);
-        random.set_seed(1);
-        assert_eq!(random.next(), 7806831264735756412);
-    } else if cfg!(target_pointer_width = "32") {
-        assert_eq!(random.next(), 3159723346);
-        random.set_seed(1);
-        assert_eq!(random.next(), 1015568748);
-    }
-}
+unsafe impl Send for Random {}
+unsafe impl Sync for Random {}
