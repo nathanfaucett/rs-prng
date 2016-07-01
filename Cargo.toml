@@ -10,19 +10,5 @@ readme = "README.md"
 repository = "https://github.com/nathanfaucett/rs-pseudo_random.git"
 homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
 
-[profile.dev]
-debug-assertions = false
-
-[profile.release]
-debug-assertions = false
-
-[profile.test]
-debug-assertions = false
-
-[profile.bench]
-debug-assertions = false
-
-[profile.doc]
-debug-assertions = false
 
 [dependencies]

@@ -1,5 +1,5 @@
 #![no_std]
-#![feature(alloc)]
+#![feature(alloc, custom_attribute)]
 
 
 extern crate alloc;
@@ -46,7 +46,7 @@ impl RandomData {
     // http://indiegamr.com/generate-repeatable-random-numbers-in-js/
     #[inline(always)]
     fn next(&mut self) -> usize {
-        self.seed = (MULTIPLIER * self.seed + OFFSET) % MAX;
+        self.seed = ((MULTIPLIER.wrapping_mul(self.seed)).wrapping_add(OFFSET)) % MAX;
         self.seed
     }
 }
