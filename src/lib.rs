@@ -4,10 +4,13 @@
 
 extern crate alloc;
 
+extern crate spin;
+
 
 use alloc::arc::Arc;
-use core::cell::RefCell;
 use core::usize::MAX;
+
+use spin::Mutex;
 
 
 // https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
@@ -54,28 +57,28 @@ impl RandomData {
 
 #[derive(Clone)]
 pub struct Random {
-    data: Arc<RefCell<RandomData>>,
+    data: Arc<Mutex<RandomData>>,
 }
 impl Random {
     #[inline(always)]
     pub fn new() -> Self {
         Random {
-            data: Arc::new(RefCell::new(RandomData::new())),
+            data: Arc::new(Mutex::new(RandomData::new())),
         }
     }
 
     #[inline(always)]
     pub fn seed(&self) -> usize {
-        self.data.borrow().seed()
+        self.data.lock().seed()
     }
     #[inline(always)]
     pub fn set_seed(&self, s: usize) {
-        self.data.borrow_mut().set_seed(s);
+        self.data.lock().set_seed(s);
     }
 
     #[inline(always)]
     pub fn next(&self) -> usize {
-        self.data.borrow_mut().next()
+        self.data.lock().next()
     }
     #[inline(always)]
     pub fn next_f32(&self) -> f32 {

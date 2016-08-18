@@ -12,3 +12,4 @@ homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
 
 
 [dependencies]
+spin = "0.3"
