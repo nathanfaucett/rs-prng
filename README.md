@@ -1,6 +1,5 @@
-rs-pseudo_random
+rs-pseudo_random [![Build Status](https://travis-ci.org/nathanfaucett/rs-pseudo_random.svg?branch=master)](https://travis-ci.org/nathanfaucett/rs-pseudo_random)
 =====
-
 pseudo random number generator
 
 ```rust
@@ -8,7 +7,7 @@ extern crate pseudo_random;
 
 
 fn main() {
-    let random = pseudo_random::Random::new();
+    let random = pseudo_random::Prng::new();
 
     random.set_seed(24564764657); // some random unsigned integer
 

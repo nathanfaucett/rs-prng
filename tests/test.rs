@@ -2,19 +2,19 @@ extern crate pseudo_random;
 
 
 use std::thread;
-use pseudo_random::Random;
+use pseudo_random::{Rng, ThreadPrng};
 
 
 #[test]
 fn test_random_struct() {
-    let random = Random::new();
+    let mut random = ThreadPrng::new();
 
     if cfg!(target_pointer_width = "64") {
         assert_eq!(random.next(), 4301930853896946210);
         random.set_seed(1);
         assert_eq!(random.next(), 7806831264735756412);
 
-        let r = random.clone();
+        let mut r = random.clone();
         let child = thread::spawn(move || {
             assert_eq!(r.next(), 9396908728118811419);
         });
@@ -29,7 +29,7 @@ fn test_random_struct() {
         random.set_seed(1);
         assert_eq!(random.next(), 1140654204);
 
-        let r = random.clone();
+        let mut r = random.clone();
         let child = thread::spawn(move || {
             assert_eq!(r.next(), 2253003547);
         });
