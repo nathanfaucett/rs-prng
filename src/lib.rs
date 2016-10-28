@@ -5,11 +5,15 @@
 extern crate alloc;
 extern crate spin;
 
+extern crate rng;
+
 
 use alloc::arc::Arc;
 use core::usize;
 
 use spin::Mutex;
+
+use rng::Rng;
 
 
 // https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
@@ -27,13 +31,6 @@ pub static MULTIPLIER: usize = 6364136223846793005;
 pub static MAX: usize = usize::MAX;
 pub static MAX_F32: f32 = usize::MAX as f32;
 pub static MAX_F64: f64 = usize::MAX as f64;
-
-
-pub trait Rng {
-    fn next(&mut self) -> usize;
-    fn next_f32(&mut self) -> f32;
-    fn next_f64(&mut self) -> f64;
-}
 
 
 pub struct Prng {

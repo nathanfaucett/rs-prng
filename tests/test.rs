@@ -1,8 +1,11 @@
 extern crate pseudo_random;
 
+extern crate rng;
+
 
 use std::thread;
-use pseudo_random::{Rng, ThreadPrng};
+use pseudo_random::ThreadPrng;
+use rng::Rng;
 
 
 #[test]

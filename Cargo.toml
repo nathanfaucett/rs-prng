@@ -13,3 +13,6 @@ homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
 
 [dependencies]
 spin = "0.4.3"
+
+[dependencies.rng]
+git = "https://github.com/nathanfaucett/rs-rng.git"
