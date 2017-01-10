@@ -2,6 +2,11 @@ rs-pseudo_random [![Build Status](https://travis-ci.org/nathanfaucett/rs-pseudo_
 =====
 pseudo random number generator
 
+run test
+```bash
+cargo test --features=thread_prng
+```
+
 ```rust
 extern crate pseudo_random;
 

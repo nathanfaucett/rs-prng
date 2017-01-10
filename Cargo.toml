@@ -11,8 +11,8 @@ repository = "https://github.com/nathanfaucett/rs-pseudo_random.git"
 homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
 
 
-[dependencies]
-spin = "0.4.3"
+[features]
+thread_prng = []
 
 [dependencies.rng]
 git = "https://github.com/nathanfaucett/rs-rng.git"
