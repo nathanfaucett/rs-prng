@@ -29,7 +29,7 @@ impl Prng {
     pub fn new() -> Self {
         Prng {
             // get a value for initial seed
-            seed: &0usize as *const usize as usize,
+            seed: &false as *const _ as usize,
         }
     }
 
