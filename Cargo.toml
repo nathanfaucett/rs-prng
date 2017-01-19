@@ -14,5 +14,8 @@ homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
 [features]
 thread_prng = []
 
-[dependencies.rng]
-git = "https://github.com/nathanfaucett/rs-rng.git"
+[dependencies]
+rng = {git = "https://github.com/nathanfaucett/rs-rng.git"}
+
+[dev-dependencies]
+rand = "0.3"
