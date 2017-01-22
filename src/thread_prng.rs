@@ -9,6 +9,9 @@ pub struct ThreadPrng {
     data: Arc<Mutex<Prng>>,
 }
 
+unsafe impl Send for ThreadPrng {}
+unsafe impl Sync for ThreadPrng {}
+
 impl ThreadPrng {
 
     pub fn new() -> Self {
@@ -20,7 +23,7 @@ impl ThreadPrng {
     pub fn seed(&self) -> usize {
         match self.data.lock() {
             Ok(guard) => guard.seed(),
-            Err(..) => 0usize,
+            Err(..) => 0,
         }
     }
 
@@ -33,28 +36,10 @@ impl ThreadPrng {
 }
 
 impl Rng for ThreadPrng {
-
     fn next(&mut self) -> usize {
         match self.data.lock() {
             Ok(mut guard) => guard.next(),
-            Err(..) => 0usize,
-        }
-    }
-
-    fn next_f32(&mut self) -> f32 {
-        match self.data.lock() {
-            Ok(mut guard) => guard.next_f32(),
-            Err(..) => 0f32,
-        }
-    }
-
-    fn next_f64(&mut self) -> f64 {
-        match self.data.lock() {
-            Ok(mut guard) => guard.next_f64(),
-            Err(..) => 0f64,
+            Err(..) => 0,
         }
     }
 }
-
-unsafe impl Send for ThreadPrng {}
-unsafe impl Sync for ThreadPrng {}
