@@ -1,5 +1,5 @@
-#![no_std]
 #![feature(custom_attribute)]
+#![no_std]
 
 
 #[cfg(feature = "thread_prng")]

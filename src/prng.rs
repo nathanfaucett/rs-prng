@@ -22,16 +22,16 @@ pub struct Prng {
 }
 
 impl Prng {
-
+    #[inline]
     pub fn new() -> Self {
         Prng {
             // get a value for initial seed
             seed: &false as *const _ as usize,
         }
     }
-
+    #[inline]
     pub fn seed(&self) -> usize { self.seed }
-
+    #[inline]
     pub fn set_seed(&mut self, seed: usize) {
         self.seed = seed;
     }
@@ -39,6 +39,7 @@ impl Prng {
 
 impl Rng for Prng {
     // http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+    #[inline]
     fn next(&mut self) -> usize {
         self.seed = ((MULTIPLIER.wrapping_mul(self.seed)).wrapping_add(OFFSET)) % MAX;
         self.seed
