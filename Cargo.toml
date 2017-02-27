@@ -11,9 +11,6 @@ repository = "https://github.com/nathanfaucett/rs-prng.git"
 homepage = "https://github.com/nathanfaucett/rs-prng"
 
 
-[features]
-thread_prng = []
-
 [dependencies]
 rng = {git = "https://github.com/nathanfaucett/rs-rng.git"}
 
