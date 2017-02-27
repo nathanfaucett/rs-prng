@@ -24,15 +24,15 @@ lazy_static! {
 }
 
 
-#[inline]
-pub fn random() -> f64 {
-    random_f64()
+#[inline(always)]
+pub fn random() -> usize {
+    THREAD_PRNG.next_prn()
 }
-#[inline]
+#[inline(always)]
 pub fn random_f32() -> f32 {
     THREAD_PRNG.next_prn() as f32 * rng::INV_MAX_F32
 }
-#[inline]
+#[inline(always)]
 pub fn random_f64() -> f64 {
     THREAD_PRNG.next_prn() as f64 * rng::INV_MAX_F64
 }
