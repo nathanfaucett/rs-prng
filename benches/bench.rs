@@ -16,16 +16,24 @@ use test::Bencher;
 fn test_prng(b: &mut Bencher) {
     use rng::Rng;
     use prng::Prng;
-
     let mut random = Prng::new();
 
     b.iter(|| {
-        random.next()
+        random.next_f64()
+    });
+}
+#[bench]
+fn test_rand(b: &mut Bencher) {
+    use rand::Rng;
+    let mut random = rand::weak_rng();
+
+    b.iter(|| {
+        random.next_f64()
     });
 }
 
 #[bench]
-fn test_rand(b: &mut Bencher) {
+fn test_thread_rand(b: &mut Bencher) {
     use std::thread;
 
     let cpus = num_cpus::get();

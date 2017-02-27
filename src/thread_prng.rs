@@ -28,6 +28,10 @@ impl ThreadPrng {
     pub fn set_seed(&self, seed: usize) {
         self.data.set_seed(seed);
     }
+    #[inline]
+    pub fn next_prn(&self) -> usize {
+        self.data.next_prn()
+    }
 }
 
 impl Rng for ThreadPrng {
