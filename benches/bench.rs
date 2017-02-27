@@ -49,7 +49,7 @@ fn test_thread_safe_prng(b: &mut Bencher) {
     use prng::ThreadPrng;
 
     let cpus = num_cpus::get();
-    let mut random = ThreadPrng::new();
+    let random = ThreadPrng::new();
 
     b.iter(|| {
         let mut handles = Vec::new();

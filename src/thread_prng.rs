@@ -1,45 +1,37 @@
-use std::sync::{Arc, Mutex};
+use alloc::arc::Arc;
 
 use rng::Rng;
-use prng::Prng;
+
+use super::atomic_prng::AtomicPrng;
 
 
 #[derive(Clone)]
 pub struct ThreadPrng {
-    data: Arc<Mutex<Prng>>,
+    data: Arc<AtomicPrng>,
 }
 
 unsafe impl Send for ThreadPrng {}
 unsafe impl Sync for ThreadPrng {}
 
 impl ThreadPrng {
-
+    #[inline]
     pub fn new() -> Self {
         ThreadPrng {
-            data: Arc::new(Mutex::new(Prng::new())),
+            data: Arc::new(AtomicPrng::new()),
         }
     }
-
+    #[inline]
     pub fn seed(&self) -> usize {
-        match self.data.lock() {
-            Ok(guard) => guard.seed(),
-            Err(..) => 0,
-        }
+        self.data.seed()
     }
-
+    #[inline]
     pub fn set_seed(&self, seed: usize) {
-        match self.data.lock() {
-            Ok(mut guard) => guard.set_seed(seed),
-            Err(..) => (),
-        }
+        self.data.set_seed(seed);
     }
 }
 
 impl Rng for ThreadPrng {
     fn next(&mut self) -> usize {
-        match self.data.lock() {
-            Ok(mut guard) => guard.next(),
-            Err(..) => 0,
-        }
+        self.data.next_prn()
     }
 }

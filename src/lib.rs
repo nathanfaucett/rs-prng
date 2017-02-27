@@ -1,18 +1,17 @@
-#![feature(custom_attribute)]
+#![feature(alloc)]
 #![no_std]
 
 
-#[cfg(feature = "thread_prng")]
-extern crate std;
+extern crate alloc;
 
 extern crate rng;
 
 
+mod atomic_prng;
 mod prng;
-#[cfg(feature = "thread_prng")]
 mod thread_prng;
 
 
-pub use prng::*;
-#[cfg(feature = "thread_prng")]
-pub use thread_prng::ThreadPrng;
+pub use self::atomic_prng::*;
+pub use self::prng::*;
+pub use self::thread_prng::*;

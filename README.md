@@ -2,11 +2,6 @@ rs-prng [![Build Status](https://travis-ci.org/nathanfaucett/rs-prng.svg?branch=
 =====
 pseudo random number generator
 
-run test
-```bash
-cargo test --features=thread_prng
-```
-
 ```rust
 extern crate prng;
 
