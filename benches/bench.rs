@@ -5,7 +5,7 @@ extern crate test;
 extern crate rand;
 extern crate num_cpus;
 
-extern crate pseudo_random;
+extern crate prng;
 extern crate rng;
 
 
@@ -13,9 +13,9 @@ use test::Bencher;
 
 
 #[bench]
-fn test_pseudo_random(b: &mut Bencher) {
+fn test_prng(b: &mut Bencher) {
     use rng::Rng;
-    use pseudo_random::Prng;
+    use prng::Prng;
 
     let mut random = Prng::new();
 
@@ -43,10 +43,10 @@ fn test_rand(b: &mut Bencher) {
     });
 }
 #[bench]
-fn test_thread_safe_pseudo_random(b: &mut Bencher) {
+fn test_thread_safe_prng(b: &mut Bencher) {
     use std::thread;
     use rng::Rng;
-    use pseudo_random::ThreadPrng;
+    use prng::ThreadPrng;
 
     let cpus = num_cpus::get();
     let mut random = ThreadPrng::new();

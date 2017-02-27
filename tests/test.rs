@@ -1,9 +1,9 @@
-extern crate pseudo_random;
+extern crate prng;
 extern crate rng;
 
 
 use std::thread;
-use pseudo_random::{MAX, ThreadPrng};
+use prng::{MAX, ThreadPrng};
 use rng::Rng;
 
 

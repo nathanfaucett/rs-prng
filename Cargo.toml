@@ -1,14 +1,14 @@
 [package]
-name = "pseudo_random"
+name = "prng"
 version = "0.1.0"
 authors = ["nathanfaucett <nathanfaucett@gmail.com>"]
 
-keywords = ["pseudo_random"]
+keywords = ["prng", "pseudo", "random", "generator"]
 description = "pseudo random number generator"
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/nathanfaucett/rs-pseudo_random.git"
-homepage = "https://github.com/nathanfaucett/rs-pseudo_random"
+repository = "https://github.com/nathanfaucett/rs-prng.git"
+homepage = "https://github.com/nathanfaucett/rs-prng"
 
 
 [features]

@@ -1,4 +1,4 @@
-rs-pseudo_random [![Build Status](https://travis-ci.org/nathanfaucett/rs-pseudo_random.svg?branch=master)](https://travis-ci.org/nathanfaucett/rs-pseudo_random)
+rs-prng [![Build Status](https://travis-ci.org/nathanfaucett/rs-prng.svg?branch=master)](https://travis-ci.org/nathanfaucett/rs-prng)
 =====
 pseudo random number generator
 
@@ -8,11 +8,11 @@ cargo test --features=thread_prng
 ```
 
 ```rust
-extern crate pseudo_random;
+extern crate prng;
 
 
 fn main() {
-    let random = pseudo_random::Prng::new();
+    let random = prng::Prng::new();
 
     random.set_seed(24564764657); // some random unsigned integer
 
