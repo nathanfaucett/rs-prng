@@ -1,3 +1,5 @@
+use alloc::arc::Arc;
+
 use core::sync::atomic::{AtomicUsize, Ordering};
 
 use rng::Rng;
@@ -6,7 +8,7 @@ use super::prng::{MULTIPLIER, OFFSET, MAX};
 
 
 pub struct AtomicPrng {
-    seed: AtomicUsize,
+    seed: Arc<AtomicUsize>,
 }
 
 impl AtomicPrng {
@@ -14,7 +16,7 @@ impl AtomicPrng {
     pub fn new() -> Self {
         AtomicPrng {
             // get a value for initial seed
-            seed: AtomicUsize::new(&false as *const _ as usize),
+            seed: Arc::new(AtomicUsize::new(&false as *const _ as usize)),
         }
     }
     #[inline]
@@ -32,6 +34,15 @@ impl AtomicPrng {
         let next_seed = ((MULTIPLIER.wrapping_mul(current_seed)).wrapping_add(OFFSET)) % MAX;
         seed.compare_and_swap(current_seed, next_seed, Ordering::Relaxed);
         next_seed
+    }
+}
+
+impl Clone for AtomicPrng {
+    #[inline(always)]
+    fn clone(&self) -> Self {
+        AtomicPrng {
+            seed: self.seed.clone(),
+        }
     }
 }
 

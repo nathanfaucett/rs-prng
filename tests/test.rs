@@ -3,14 +3,14 @@ extern crate rng;
 
 
 use std::thread;
-use prng::{MAX, ThreadPrng};
+use prng::{MAX, AtomicPrng};
 use rng::Rng;
 
 
 #[cfg(target_pointer_width = "32")]
 #[test]
 fn test_random_struct() {
-    let mut random = ThreadPrng::new();
+    let mut random = AtomicPrng::new();
 
     random.set_seed(MAX / 2);
     assert_eq!(random.next(), 718406178);
@@ -32,7 +32,7 @@ fn test_random_struct() {
 #[cfg(target_pointer_width = "64")]
 #[test]
 fn test_random_struct() {
-    let mut random = ThreadPrng::new();
+    let mut random = AtomicPrng::new();
 
     random.set_seed(MAX / 2);
     assert_eq!(random.next(), 4301930853896946210);

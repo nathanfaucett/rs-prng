@@ -13,8 +13,7 @@ homepage = "https://github.com/nathanfaucett/rs-prng"
 
 [dependencies]
 rng = {git = "https://github.com/nathanfaucett/rs-rng.git"}
-lazy_static = {git = "https://github.com/rust-lang-nursery/lazy-static.rs.git", features = ["spin_no_std"]}
 
 [dev-dependencies]
-num_cpus = "1.2"
-rand = "0.3"
+num_cpus = {version = "1.2"}
+rand = {version = "0.3"}
