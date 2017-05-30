@@ -19,16 +19,16 @@ impl AtomicPrng {
             seed: Arc::new(AtomicUsize::new(&false as *const _ as usize)),
         }
     }
-    #[inline]
+    #[inline(always)]
     pub fn seed(&self) -> usize {
         self.seed.load(Ordering::Relaxed)
     }
-    #[inline]
+    #[inline(always)]
     pub fn set_seed(&self, seed: usize) {
         self.seed.store(seed, Ordering::Relaxed);
     }
     #[inline]
-    pub fn next_prn(&self) -> usize {
+    pub fn next(&self) -> usize {
         let seed = &self.seed;
         let current_seed = seed.load(Ordering::Relaxed);
         let next_seed = ((MULTIPLIER.wrapping_mul(current_seed)).wrapping_add(OFFSET)) % MAX;
@@ -49,6 +49,6 @@ impl Clone for AtomicPrng {
 impl Rng for AtomicPrng {
     #[inline(always)]
     fn next(&mut self) -> usize {
-        self.next_prn()
+        (self as &Self).next()
     }
 }

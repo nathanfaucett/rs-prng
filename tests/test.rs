@@ -35,11 +35,11 @@ fn test_random_struct() {
     let mut random = AtomicPrng::new();
 
     random.set_seed(MAX / 2);
-    assert_eq!(random.next(), 4301930853896946210);
+    assert_eq!(Rng::next(&mut random), 4301930853896946210);
     random.set_seed(1);
     assert_eq!(random.next(), 7806831264735756412);
 
-    let mut r = random.clone();
+    let r = random.clone();
     let child = thread::spawn(move || {
         assert_eq!(r.next(), 9396908728118811419);
     });
